@@ -1,5 +1,5 @@
 # JSON Translator
-This project is mainly to help developers translate their JSON files which is commonly issed for localization.
+This project is mainly to help developers translate their JSON files which is commonly issed for localization. It also support any level of nested JSON files.
 
 ### How to use.
 __Step 1__
