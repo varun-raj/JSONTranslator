@@ -16,6 +16,8 @@ Set your configuration in `config.json`
 - `destination_languages` : Array of output language codes
 - `output_folder` : Folder to save output json
 - `input_file_path` : The source language JSON
+- `google_project_id` : Google Cloud Project ID
+- `service_key_path` : Service Key file of Google Cloud Project
 
 __Step 3__
 Run the translate file with ruby.
