@@ -1,0 +1,11 @@
+{ 
+  "commonMessages": {
+    "loading": "Please wait, we're crunching your data..."
+  },
+  "errorMessages": {
+    "httpCodes": {
+      "notFound": "Sorry page not found",
+      "serverError": "Something went wrong with the server"
+    }
+  }
+}

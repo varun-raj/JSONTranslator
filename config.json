@@ -1,0 +1,5 @@
+{
+    "destination_languages": ["ar"],
+    "output_folder": "output",
+    "input_file_path": "en.json"
+}

@@ -1,0 +1,11 @@
+{
+  "commonMessages": {
+    "loading": "الرجاء الانتظار، نحن نطحن بياناتك ..."
+  },
+  "errorMessages": {
+    "httpCodes": {
+      "notFound": "عذرا، لم يتم العثور على الصفحة",
+      "serverError": "حدث خطأ ما مع الخادم"
+    }
+  }
+}
