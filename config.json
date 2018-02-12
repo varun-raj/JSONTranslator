@@ -1,5 +1,7 @@
 {
     "destination_languages": ["ar"],
     "output_folder": "output",
-    "input_file_path": "en.json"
+    "input_file_path": "en.json",
+    "service_key_path": "service-key.json",
+    "google_project_id": "short-cine"
 }

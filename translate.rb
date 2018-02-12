@@ -2,18 +2,6 @@
 require "google/cloud/translate"
 require 'json'
 
-# Initialize the project id and the keyfile
-project_id = "short-cine"
-keyfile = "service-key.json"
-
-# Create a credentials object with the keyfile
-creds = Google::Cloud::Translate::Credentials.new keyfile
-
-# Create the instance of Google Translate API
-$translate = Google::Cloud::Translate.new(
-  project_id: project_id,
-  credentials: creds
-)
 
 # Setting up the config
 config_file = File.read('config.json')
@@ -22,6 +10,19 @@ CONFIG = JSON.parse(config_file)
 DESTINATION_LANGUAGES = CONFIG["destination_languages"]
 OUTPUT_FOLDER = CONFIG["output_folder"]
 INPUT_FILE_PATH = CONFIG["input_file_path"]
+
+# Initialize the project id and the keyfile from config
+PROJECT_ID = CONFIG["google_project_id"]
+SERVICE_KEY = CONFIG["service_key_path"]
+
+# Create a credentials object with the keyfile
+creds = Google::Cloud::Translate::Credentials.new SERVICE_KEY
+
+# Create the instance of Google Translate API
+$translate = Google::Cloud::Translate.new(
+  project_id: PROJECT_ID,
+  credentials: creds
+)
 
 # Read the input JSON and Parse it to Ruby hash
 file = File.read(INPUT_FILE_PATH)
