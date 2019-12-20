@@ -1,12 +1,15 @@
 # JSON Translator
-This project is mainly to help developers translate their JSON files which is commonly issed for localization. It also support any level of nested JSON files.
+This project is mainly to help developers translate their JSON files which is commonly used for localization. It also support any level of nested JSON files.
 
 ### How to use.
 __Step 1__
-Setup Google Transalte API and create service keys for your project. Refer [https://cloud.google.com/translate/docs/reference/libraries](https://cloud.google.com/translate/docs/reference/libraries)
+Setup Google Translate API and create service keys for your project. Refer [https://cloud.google.com/translate/docs/reference/libraries](https://cloud.google.com/translate/docs/reference/libraries)
+
+Ensure to enable the "Translate" API in the API tab of GCP.
 
 __Step 2__
-Install the libraries 
+Install the libraries
+
 ```
 bundle install
 ```
@@ -21,6 +24,10 @@ Set your configuration in `config.json`
 
 __Step 3__
 Run the translate file with ruby.
+
 ```
 ruby translate.rb
 ```
+
+__Step 4__
+For Rails devs, use the t.rb file to convert input folder to output folder.

@@ -55,4 +55,3 @@ DESTINATION_LANGUAGES.each do |lang|
 	  f.write(jsonOutput)
 	end
 end
- 

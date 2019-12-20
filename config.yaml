@@ -1,0 +1,3 @@
+destination_languages: ["es"]
+service_key_path: "service-key.json"
+google_project_id: "hellonext-prod"
