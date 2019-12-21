@@ -2,7 +2,7 @@ require 'json'
 require 'fileutils'
 require 'google/cloud/translate'
 
-CONFIG_FILE_PATH = 'config.json'
+CONFIG_FILE_PATH = 'config.yaml'
 
 class LocaleTranslator
   attr_accessor :translator, :input_folder_path, :output_folder_path, :config, :current_lang
@@ -36,12 +36,7 @@ class LocaleTranslator
         puts "Done!\n\n"
         sleep(1)
       elsif File.directory? path
-        nested_output_folder_path = path.gsub(
-          input_folder_path,
-          output_folder_path
-        )
-        FileUtils.mkdir_p nested_output_folder_path
-
+        create_nested_output_folder(path)
         traverse!(path)
       end
     end
@@ -68,11 +63,7 @@ class LocaleTranslator
 
     translated_yaml = YAML.dump translated_yaml
 
-    output_file_path = input_file_path.gsub(
-      input_folder_path,
-      output_folder_path
-    )
-    output_file_path = output_file_path.gsub(".en.yml", ".#{current_lang}.yml")
+    output_file_path = create_output_file_path(input_file_path)
     puts "\n\nWriting to #{output_file_path} now...\n\n"
 
   	File.open(output_file_path, "w+") do |f|
@@ -96,6 +87,26 @@ class LocaleTranslator
       project_id: self.config[:google_project_id],
       credentials: creds
     )
+  end
+
+  def current_output_folder
+    File.join(output_folder_path, current_lang)
+  end
+
+  def create_nested_output_folder(path)
+    nested_output_folder_path = path.gsub(
+      input_folder_path,
+      current_output_folder
+    )
+    FileUtils.mkdir_p nested_output_folder_path
+  end
+
+  def create_output_file_path(path)
+    output_file_path = path.gsub(
+      input_folder_path,
+      current_output_folder
+    )
+    output_file_path.gsub(".en.yml", ".#{current_lang}.yml")
   end
 end
 
