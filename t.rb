@@ -11,8 +11,8 @@ class LocaleTranslator
     read_config
     set_translator
 
-    self.input_folder_path = File.join(Dir.pwd, 'input')
-    self.output_folder_path = File.join(Dir.pwd, 'output')
+    self.input_folder_path = '/Users/swaathi/Downloads/hn/locales'
+    self.output_folder_path = '/Users/swaathi/Downloads/hn/translated_locales'
   end
 
   def convert!
@@ -26,8 +26,10 @@ class LocaleTranslator
 
   def traverse!(current_path)
     Dir[File.join(current_path, "/*")].each do |path|
-      if File.file? path
-        puts "Converting '#{path}' now...\n"
+      if File.file?(path) && is_en?(path)
+        puts "Copying and converting '#{path}' now...\n"
+        copy_en_file_to_output_folder(path)
+
       	original_yaml = YAML.load(File.read(path))
 
         translated_yaml = translate(original_yaml)
@@ -90,14 +92,19 @@ class LocaleTranslator
   end
 
   def current_output_folder
-    File.join(output_folder_path, current_lang)
+    # File.join(output_folder_path, current_lang)
+    output_folder_path
   end
 
   def create_nested_output_folder(path)
     nested_output_folder_path = path.gsub(
       input_folder_path,
-      current_output_folder
+      output_folder_path
     )
+    # nested_output_folder_path = path.gsub(
+    #   input_folder_path,
+    #   current_output_folder
+    # )
     FileUtils.mkdir_p nested_output_folder_path
   end
 
@@ -107,6 +114,20 @@ class LocaleTranslator
       current_output_folder
     )
     output_file_path.gsub(".en.yml", ".#{current_lang}.yml")
+  end
+
+  def is_en?(path)
+    path.include? ".en.yml"
+  end
+
+  def copy_en_file_to_output_folder(path)
+    if is_en?(path)
+      output_en_file_path = path.gsub(
+        input_folder_path,
+        output_folder_path
+      )
+      FileUtils.cp(path, output_en_file_path)
+    end
   end
 end
 
