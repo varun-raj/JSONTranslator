@@ -2,7 +2,7 @@ require 'json'
 require 'fileutils'
 require 'google/cloud/translate'
 
-CONFIG_FILE_PATH = 'config.yaml'
+CONFIG_FILE_PATH = '../config.yaml'
 
 class LocaleTranslator
   attr_accessor :translator, :input_folder_path, :output_folder_path, :config, :current_lang
@@ -11,8 +11,8 @@ class LocaleTranslator
     read_config
     set_translator
 
-    self.input_folder_path = '/Users/swaathi/Downloads/hn/locales'
-    self.output_folder_path = '/Users/swaathi/Downloads/hn/translated_locales'
+    self.input_folder_path = '/Users/swaathi/code/work/JSONTranslator/input'
+    self.output_folder_path = '/Users/swaathi/code/work/JSONTranslator/output'
   end
 
   def convert!
@@ -113,11 +113,11 @@ class LocaleTranslator
       input_folder_path,
       current_output_folder
     )
-    output_file_path.gsub(".en.yml", ".#{current_lang}.yml")
+    output_file_path.gsub("en.yml", "#{current_lang}.yml")
   end
 
   def is_en?(path)
-    path.include? ".en.yml"
+    path.include? "en.yml"
   end
 
   def copy_en_file_to_output_folder(path)
@@ -130,6 +130,3 @@ class LocaleTranslator
     end
   end
 end
-
-locale_translator = LocaleTranslator.new
-locale_translator.convert!
