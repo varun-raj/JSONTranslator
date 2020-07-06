@@ -2,7 +2,7 @@ require 'json'
 require 'fileutils'
 require 'google/cloud/translate'
 
-CONFIG_FILE_PATH = '../config.yaml'
+CONFIG_FILE_PATH = 'config.yaml'
 
 class LocaleTranslator
   attr_accessor :translator, :input_folder_path, :output_folder_path, :config, :current_lang

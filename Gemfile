@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'google-cloud-translate'
+gem 'google-cloud-translate', '1.1.0'
 gem 'json'
 
 # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

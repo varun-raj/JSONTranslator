@@ -35,8 +35,8 @@ For Rails devs, use the t.rb file to convert input folder to output folder. This
 ```
 -irb -I .
 
-> require 't'
+require 't'
 
-> locale_translator = LocaleTranslator.new
-> locale_translator.convert!
+locale_translator = LocaleTranslator.new
+locale_translator.convert!
 ```
