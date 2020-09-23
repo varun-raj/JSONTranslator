@@ -1,11 +1,39 @@
 require 'json'
 require 'fileutils'
 require 'google/cloud/translate'
+require 'active_support/all'
 
 CONFIG_FILE_PATH = 'config.yaml'
+MASK_REGEX = /\%\{[a-z\_\-]*\}/.freeze
+INTP_REGEX = /\%\{([a-z\_\-]*)\}/.freeze
 
 class LocaleTranslator
   attr_accessor :translator, :input_folder_path, :output_folder_path, :config, :current_lang
+
+  def self.mask(value)
+    masks = []
+    value.scan(MASK_REGEX).each do |intp|
+      mask_intp = convert_mask(intp)
+      masks.push([intp, mask_intp])
+      value = value.gsub(intp, mask_intp)
+    end
+
+    [value, masks]
+  end
+
+  def self.convert_mask(intp)
+    mask_intp = intp.match(INTP_REGEX)
+    mask_intp = mask_intp[1].to_s.parameterize.upcase
+    "__#{mask_intp}__"
+  end
+
+  def self.unmask(masked_value, masks)
+    masks.each do |intp, mask_intp|
+      masked_value = masked_value.gsub(mask_intp, intp)
+    end
+
+    masked_value
+  end
 
   def initialize
     read_config
@@ -48,11 +76,12 @@ class LocaleTranslator
     hash.each do |key, value|
     	if value.is_a?(Hash)
         value = translate(value)
-    	else
-    	   value = translator.translate(value, to: current_lang)
-    	   hash[key] = value.text
+      else
+        value, masks = LocaleTranslator.mask(value)
+        value = translator.translate(value, to: current_lang)
+        hash[key] = LocaleTranslator.unmask(value.text, masks)
 
-    	   puts "#{key}: #{hash[key]}"
+        puts "#{key}: #{hash[key]}"
     	end
     end
 

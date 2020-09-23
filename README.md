@@ -33,7 +33,7 @@ __Step 4__
 For Rails devs, use the t.rb file to convert input folder to output folder. This is smart enough to translate only from "en.yml" files, so you just copy your entire locale folder from your Rails project and dump it into the "input" folder. The output will contain the en files and your selected langauges files. Copy the output folder to your locales folder and merge all changes.
 
 ```
--irb -I .
+irb -I .
 
 require 't'
 
