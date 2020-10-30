@@ -40,3 +40,12 @@ require 't'
 locale_translator = LocaleTranslator.new
 locale_translator.convert!
 ```
+
+```
+irb -I .
+
+require 's'
+
+sentence_translator = STranslator.new(key: "hello")
+sentence_translator.translate!("")
+```
