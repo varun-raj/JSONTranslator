@@ -2,3 +2,4 @@ service-key.json
 input/*
 output/*
 .DS_Store
+output.zip
